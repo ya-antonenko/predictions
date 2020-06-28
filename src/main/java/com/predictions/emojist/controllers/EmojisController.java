@@ -11,9 +11,9 @@ public class EmojisController {
     @PostMapping("/predictions")
     public JSONObject predictionsToJson(JSONObject emojis){
         String emoji = (String) emojis.get("emojis");
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(emoji, String.valueOf(Math.random()));
-        return jsonObject;
+        JSONObject jsonObjectResult = new JSONObject();
+        jsonObjectResult.put("emojis", emoji.concat(" + result..."));
+        return jsonObjectResult;
     }
     @GetMapping()
     public JSONObject mainPage(){
