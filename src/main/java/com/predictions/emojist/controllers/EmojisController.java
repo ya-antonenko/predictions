@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmojisController {
     @PostMapping("/predictions")
-    public JSONObject predictionsToJson(@RequestParam("emojis") String emojis){
+    public JSONObject predictionsToJson(JSONObject emojis){
+        String emoji = (String) emojis.get("emojis");
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(emojis, Math.random());
+        jsonObject.put(emoji, String.valueOf(Math.random()));
         return jsonObject;
     }
     @GetMapping()
