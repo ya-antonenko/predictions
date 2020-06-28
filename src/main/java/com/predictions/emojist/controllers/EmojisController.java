@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmojisController {
     @PostMapping("/predictions")
-    public JSONObject predictionsToJson(@RequestParam("emodjis") String emojis){
+    public JSONObject predictionsToJson(@RequestParam("emojis") String emojis){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(emojis, Math.random());
         return jsonObject;
