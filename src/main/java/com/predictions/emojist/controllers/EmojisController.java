@@ -1,17 +1,19 @@
 package com.predictions.emojist.controllers;
 
+
 import org.json.simple.JSONObject;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class EmojisController {
     @PostMapping("/predictions")
-    public JSONObject predictionsToJson(@RequestParam JSONObject emojis){
-        String emoji = (String) emojis.get("emojis");
+    public JSONObject predictionsToJson(@RequestBody JSONObject emojis){
         JSONObject jsonObjectResult = new JSONObject();
+        if (emojis.isEmpty()){
+            jsonObjectResult.put("error","Json is empty");
+            return jsonObjectResult;
+        }
+        String emoji = (String) emojis.get("emojis");
         jsonObjectResult.put("emojis", emoji.concat(" + result..."));
         return jsonObjectResult;
     }
