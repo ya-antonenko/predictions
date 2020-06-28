@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmojisController {
     @PostMapping("/predictions")
-    public JSONObject predictionsToJson(JSONObject emojis){
+    public JSONObject predictionsToJson(@RequestParam JSONObject emojis){
         String emoji = (String) emojis.get("emojis");
         JSONObject jsonObjectResult = new JSONObject();
         jsonObjectResult.put("emojis", emoji.concat(" + result..."));
         return jsonObjectResult;
     }
+
     @GetMapping()
     public JSONObject mainPage(){
         JSONObject jsonObject = new JSONObject();
