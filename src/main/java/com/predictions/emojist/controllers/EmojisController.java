@@ -1,6 +1,7 @@
 package com.predictions.emojist.controllers;
 
 
+import com.predictions.emojist.domain.Emoji;
 import com.predictions.emojist.services.EmojiService;
 import com.predictions.emojist.services.PredictionsService;
 import org.json.simple.JSONObject;
@@ -28,12 +29,5 @@ public class EmojisController {
         String emoji = (String) emojis.get("emojis");
         jsonObjectResult.put("emojis", emoji.concat(" + result..."));
         return jsonObjectResult;
-    }
-
-    @GetMapping()
-    public JSONObject mainPage(){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("First", "Hello");
-        return jsonObject;
     }
 }

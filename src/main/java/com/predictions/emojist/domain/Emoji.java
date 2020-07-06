@@ -1,9 +1,7 @@
 package com.predictions.emojist.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Emoji {
@@ -12,14 +10,23 @@ public class Emoji {
     private Long id;
     private String encryption;
     private String keywords;
+    @ManyToMany
+    @JoinTable(name = "prediction_dependence",
+            joinColumns = {@JoinColumn(name = "emoji_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "prediction_id", referencedColumnName = "id")})
+    private List<Predictions> predictionsList;
 
     public Emoji(String encryption, String keywords) {
         this.encryption = encryption;
         this.keywords = keywords;
     }
 
-    public Emoji(){
+    public Emoji() {
         super();
+    }
+
+    public void addPredictionToEmoji(Predictions predictions){
+        if (!predictionsList.contains(predictions)) predictionsList.add(predictions);
     }
 
     public Long getId() {
@@ -44,5 +51,13 @@ public class Emoji {
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
+    }
+
+    public List<Predictions> getPredictionsList() {
+        return predictionsList;
+    }
+
+    public void setPredictionsList(List<Predictions> predictionsList) {
+        this.predictionsList = predictionsList;
     }
 }

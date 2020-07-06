@@ -1,9 +1,7 @@
 package com.predictions.emojist.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Predictions {
@@ -12,14 +10,21 @@ public class Predictions {
     private Long id;
     private String keywords;
     private String predict;
+    @ManyToMany(mappedBy = "predictionsList", cascade = CascadeType.ALL)
+    private List<Emoji> emojiList;
+
 
     public Predictions(String keywords, String predict) {
         this.keywords = keywords;
         this.predict = predict;
     }
 
-    public Predictions(){
+    public Predictions() {
         super();
+    }
+
+    public void addEmojiToPrediction(Emoji emoji){
+        if (!emojiList.contains(emoji)) emojiList.add(emoji);
     }
 
     public Long getId() {
@@ -44,5 +49,13 @@ public class Predictions {
 
     public void setPredict(String predict) {
         this.predict = predict;
+    }
+
+    public List<Emoji> getEmojiList() {
+        return emojiList;
+    }
+
+    public void setEmojiList(List<Emoji> emojiList) {
+        this.emojiList = emojiList;
     }
 }
