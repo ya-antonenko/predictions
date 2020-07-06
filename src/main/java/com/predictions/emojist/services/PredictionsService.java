@@ -17,7 +17,8 @@ public class PredictionsService {
     EmojiRepo emojiRepo;
 
     public void addingPredictionToDBWithDependence(Predictions predictionsToDB){
-        List<Emoji> emojiList = emojiRepo.findAllEmojisByKeywordsPrediction(predictionsToDB.getKeywords());
+        List<Emoji> emojiList =
+                emojiRepo.findAllEmojisByKeywordsPrediction("%".concat(predictionsToDB.getKeywords()).concat("%"));
         if (emojiList.isEmpty()){
             predictionsRepo.save(predictionsToDB);
             return;
