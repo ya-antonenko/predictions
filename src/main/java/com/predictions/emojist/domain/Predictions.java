@@ -1,6 +1,7 @@
 package com.predictions.emojist.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,7 +12,7 @@ public class Predictions {
     private String keywords;
     private String predict;
     @ManyToMany(mappedBy = "predictionsList", cascade = CascadeType.ALL)
-    private List<Emoji> emojiList;
+    private List<Emoji> emojiList = new ArrayList<>();
 
 
     public Predictions(String keywords, String predict) {
@@ -24,6 +25,8 @@ public class Predictions {
     }
 
     public void addEmojiToPrediction(Emoji emoji){
+        if (!emoji.getPredictionsList().contains(this))
+            emoji.getPredictionsList().add(this);
         if (!emojiList.contains(emoji)) emojiList.add(emoji);
     }
 

@@ -12,4 +12,5 @@ import java.util.List;
 public interface EmojiRepo extends JpaRepository<Emoji, Long> {
     @Query("select c from Emoji c where c.keywords like :keywords")
     List<Emoji> findAllEmojisByKeywordsPrediction(@Param("keywords") String keywords);
+    Emoji findEmojiByEncryption(String encryption);
 }

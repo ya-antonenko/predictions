@@ -1,6 +1,7 @@
 package com.predictions.emojist.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,7 @@ public class Emoji {
     @JoinTable(name = "prediction_dependence",
             joinColumns = {@JoinColumn(name = "emoji_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "prediction_id", referencedColumnName = "id")})
-    private List<Predictions> predictionsList;
+    private List<Predictions> predictionsList = new ArrayList<>();
 
     public Emoji(String encryption, String keywords) {
         this.encryption = encryption;

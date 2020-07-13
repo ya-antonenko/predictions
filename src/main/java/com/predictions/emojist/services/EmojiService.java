@@ -28,4 +28,9 @@ public class EmojiService {
         }
         emojiRepo.save(emojiToDB);
     }
+
+    public Emoji findEmojiByEncryption(String encryption){
+        Emoji emoji = emojiRepo.findEmojiByEncryption(encryption);
+        return emoji;
+    }
 }

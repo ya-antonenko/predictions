@@ -7,16 +7,18 @@ import com.predictions.emojist.services.PredictionsService;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class AddingToDBController {
     @Autowired
     private EmojiService emojiService;
     @Autowired
     private PredictionsService predictionsService;
+
+    //      *** initialization entity to DB ***
 
     @PostMapping("/add/emoji")
     public HttpStatus addEmojiWithDependenceToDB(@RequestBody JSONObject entityToDB){
@@ -26,7 +28,7 @@ public class AddingToDBController {
         if (encryption.isEmpty() || keywords.isEmpty()) return HttpStatus.BAD_REQUEST;
         Emoji emojiToDB = new Emoji(encryption, keywords);
         emojiService.addingEmojiToDBWithDependence(emojiToDB);
-        return HttpStatus.OK;
+        return HttpStatus.NO_CONTENT;
     }
 
     @PostMapping("/add/prediction")
@@ -37,6 +39,6 @@ public class AddingToDBController {
         if (keywords.isEmpty() || predict.isEmpty()) return HttpStatus.BAD_REQUEST;
         Predictions predictionToDB = new Predictions(keywords, predict);
         predictionsService.addingPredictionToDBWithDependence(predictionToDB);
-        return HttpStatus.OK;
+        return HttpStatus.NO_CONTENT;
     }
 }
