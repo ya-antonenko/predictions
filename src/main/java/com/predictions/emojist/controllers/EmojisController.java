@@ -47,21 +47,21 @@ public class EmojisController {
             }
             finallyPredictionToClient.add(onePredictionToClient);
         }
-
-        String finallyPredict = new String();
+        //String finallyPredict = new String();
 
         if (finallyPredictionToClient.isEmpty()){
             jsonObjectResult.put("massage","Предсказание по данным емоджи не найдено");
             return jsonObjectResult;
-        }else {
-
-            for (int i=0; i<finallyPredictionToClient.size(); i++){
-                if (i == finallyPredictionToClient.size() - 1)
-                    finallyPredict.concat(finallyPredictionToClient.get(i));
-                finallyPredict.concat(finallyPredictionToClient.get(i)).concat(" ");
-            }
         }
-        jsonObjectResult.put("massage", finallyPredict);
+//        else {
+//
+//            for (int i=0; i<finallyPredictionToClient.size(); i++){
+//                if (i == finallyPredictionToClient.size() - 1)
+//                    finallyPredict.concat(finallyPredictionToClient.get(i));
+//                finallyPredict.concat(finallyPredictionToClient.get(i)).concat(" ");
+//            }
+//        }
+        jsonObjectResult.put("massage", finallyPredictionToClient.toString());
         return jsonObjectResult;
     }
 
