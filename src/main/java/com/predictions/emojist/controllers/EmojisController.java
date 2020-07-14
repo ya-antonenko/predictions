@@ -40,8 +40,11 @@ public class EmojisController {
         for (int i=0; i<quantityEmojiToPredict; i++) {
             String emojiEncryption = (String) emojisFromClient.get("encryption".concat(Integer.toString(i)));
             String onePredictionToClient = generatedOnePredictToClient(emojiEncryption);
-            if (onePredictionToClient == null ||
-                    finallyPredictionToClient.contains(onePredictionToClient)) continue;
+            if (onePredictionToClient == null) continue;
+            if (finallyPredictionToClient.contains(onePredictionToClient)){
+                i--;
+                continue;
+            }
             finallyPredictionToClient.add(onePredictionToClient);
         }
 
@@ -54,8 +57,8 @@ public class EmojisController {
 
             for (int i=0; i<finallyPredictionToClient.size(); i++){
                 if (i == finallyPredictionToClient.size() - 1)
-                    finallyPredict.concat(finallyPredictionToClient.get(i)).concat(".");
-                finallyPredict.concat(finallyPredictionToClient.get(i)).concat("; ");
+                    finallyPredict.concat(finallyPredictionToClient.get(i));
+                finallyPredict.concat(finallyPredictionToClient.get(i)).concat(" ");
             }
         }
         jsonObjectResult.put("massage", finallyPredict);
