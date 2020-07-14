@@ -54,7 +54,7 @@ public class EmojisController {
             return jsonObjectResult;
         }
 
-        jsonObjectResult.put("massage", StringUtils.join(finallyPredictionToClient));
+        jsonObjectResult.put("massage", StringUtils.join(finallyPredictionToClient, " "));
         return jsonObjectResult;
     }
 
