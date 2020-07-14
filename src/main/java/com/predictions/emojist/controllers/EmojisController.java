@@ -4,6 +4,7 @@ package com.predictions.emojist.controllers;
 import com.predictions.emojist.domain.Emoji;
 import com.predictions.emojist.services.EmojiService;
 import com.predictions.emojist.services.PredictionsService;
+import org.apache.commons.lang3.StringUtils;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,9 +53,8 @@ public class EmojisController {
             jsonObjectResult.put("massage","Предсказание по данным емоджи не найдено");
             return jsonObjectResult;
         }
-        String finallyPredict = finallyPredictionToClient.toString();
-        finallyPredict.replace(".,",".");
-        jsonObjectResult.put("massage", finallyPredict);
+
+        jsonObjectResult.put("massage", StringUtils.join(finallyPredictionToClient));
         return jsonObjectResult;
     }
 

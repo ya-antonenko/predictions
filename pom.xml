@@ -65,6 +65,14 @@
 			<version>1.1.1</version>
 		</dependency>
 
+		<!--	List dependencies	-->
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.6</version>
+		</dependency>
+
 		<!--	DB dependencies	-->
 
 		<dependency>
