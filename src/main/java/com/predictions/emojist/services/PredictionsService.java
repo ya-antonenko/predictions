@@ -37,4 +37,8 @@ public class PredictionsService {
         }
         predictionsRepo.save(predictionsToDB);
     }
+
+    public List<Predictions> findAllPredictions(){
+        return predictionsRepo.findAll();
+    }
 }

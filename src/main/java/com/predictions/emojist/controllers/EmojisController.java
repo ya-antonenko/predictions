@@ -2,9 +2,11 @@ package com.predictions.emojist.controllers;
 
 
 import com.predictions.emojist.domain.Emoji;
+import com.predictions.emojist.domain.Predictions;
 import com.predictions.emojist.services.EmojiService;
 import com.predictions.emojist.services.PredictionsService;
 import org.apache.commons.lang3.StringUtils;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +25,7 @@ public class EmojisController {
     @Autowired
     PredictionsService predictionsService;
 
-    private final int quantityEmojiToPredict = 5;
+    private final int quantityEmojis = 5;
 
 
     /*** Prediction generation ***/
@@ -37,10 +39,10 @@ public class EmojisController {
         }
 
         List<String> finallyPredictionToClient = new ArrayList<>();
+        List<String> emojiEncryption = (List<String>) emojisFromClient.get("emojis");
 
-        for (int i=0; i<quantityEmojiToPredict; i++) {
-            String emojiEncryption = (String) emojisFromClient.get("encryption".concat(Integer.toString(i)));
-            String onePredictionToClient = generatedOnePredictToClient(emojiEncryption);
+        for (int i=0; i<emojiEncryption.size(); i++) {
+            String onePredictionToClient = generatedOnePredictToClient(emojiEncryption.get(i));
             if (onePredictionToClient == null) continue;
             if (finallyPredictionToClient.contains(onePredictionToClient)){
                 i--;
@@ -50,7 +52,7 @@ public class EmojisController {
         }
 
         if (finallyPredictionToClient.isEmpty()){
-            jsonObjectResult.put("massage","Предсказание по данным емоджи не найдено");
+            jsonObjectResult.put("massage",StringUtils.join(generateRandomPrediction(), " "));
             return jsonObjectResult;
         }
 
@@ -65,5 +67,21 @@ public class EmojisController {
         String onePredictionToClient = emojiToPredict.getPredictionsList().
                 get(random.nextInt(emojiToPredict.getPredictionsList().size())).getPredict();
         return onePredictionToClient;
+    }
+
+    public List<String> generateRandomPrediction(){
+        List<Predictions> predictionsList = predictionsService.findAllPredictions();
+        List<String> finallyPredictionsToClient = new ArrayList<>();
+        Random random = new Random();
+        for (int i=0; i < quantityEmojis; i++){
+            String predict = predictionsList.get(random.nextInt(predictionsList.size())).getPredict();
+            if (!finallyPredictionsToClient.contains(predict))
+                finallyPredictionsToClient.add(predict);
+            else {
+                i--;
+                continue;
+            }
+        }
+        return finallyPredictionsToClient;
     }
 }
