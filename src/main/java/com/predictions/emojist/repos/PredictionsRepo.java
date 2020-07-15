@@ -12,5 +12,6 @@ import java.util.List;
 public interface PredictionsRepo extends JpaRepository<Predictions, Long> {
     @Query("select c from Predictions c where c.keywords like :keywords")
     List<Predictions> findAllPredictionsByKeywordsEmoji(@Param("keywords") String keywords);
+    @Query("select c from Predictions c")
     List<Predictions> findAll();
 }

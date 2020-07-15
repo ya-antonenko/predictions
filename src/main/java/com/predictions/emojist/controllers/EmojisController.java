@@ -40,9 +40,9 @@ public class EmojisController {
 
         List<String> finallyPredictionToClient = new ArrayList<>();
         List<String> emojiEncryption = (List<String>) emojisFromClient.get("emojis");
-
+        Random random = new Random();
         for (int i=0; i<emojiEncryption.size(); i++) {
-            String onePredictionToClient = generatedOnePredictToClient(emojiEncryption.get(i));
+            String onePredictionToClient = generatedOnePredictToClient(emojiEncryption.get(i), random);
             if (onePredictionToClient == null) continue;
             if (finallyPredictionToClient.contains(onePredictionToClient)){
                 i--;
@@ -60,10 +60,9 @@ public class EmojisController {
         return jsonObjectResult;
     }
 
-    public String generatedOnePredictToClient(String emojiEncryption){
+    public String generatedOnePredictToClient(String emojiEncryption, Random random){
         Emoji emojiToPredict = emojiService.findEmojiByEncryption(emojiEncryption);
         if (emojiToPredict == null) return null;
-        Random random = new Random();
         String onePredictionToClient = emojiToPredict.getPredictionsList().
                 get(random.nextInt(emojiToPredict.getPredictionsList().size())).getPredict();
         return onePredictionToClient;
