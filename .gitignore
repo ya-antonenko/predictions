@@ -32,4 +32,4 @@ build/
 
 ### Init DB ###
 
-src/main/java/com/predictions/emojist/controllers/AddingToDBController.java
+#src/main/java/com/predictions/emojist/controllers/AddingToDBController.java
